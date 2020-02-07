@@ -24,7 +24,10 @@ export default function Header() {
           <HomeIcon style={{ color: 'white' }} fontSize="large" />
           <Typography variant="h4">Blog</Typography>
         </IconButton>
-        <Button className="btnLogin" color="inherit" size="large">
+        <Button className="createPostBtn" color="inherit" size="large">
+          Create Post
+        </Button>
+        <Button className="loginBtn" color="inherit" size="large">
           Log in
         </Button>
       </Toolbar>
