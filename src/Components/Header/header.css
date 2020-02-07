@@ -1,0 +1,8 @@
+.toolbar {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.btnLogin {
+    margin-left: auto;
+}
