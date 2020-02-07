@@ -22,6 +22,10 @@ export default class Login extends React.Component {
     };
   }
 
+  handleLogIn = () => {
+    this.props.isLoggedIn(true);
+  };
+
   render() {
     return (
       <div className={styles.loginContainer}>
@@ -52,6 +56,7 @@ export default class Login extends React.Component {
                 size="large"
                 color="primary"
                 fullWidth
+                onClick={() => this.handleLogIn()}
               >
                 {VARIABLES.buttonLabel}
               </Button>

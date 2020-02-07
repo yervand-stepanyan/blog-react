@@ -7,11 +7,15 @@ import Login from '../Authentication/Login/Login';
 
 const VARIABLES = {
   header: 'There is no post on web-site.',
-  textAsLink: 'Log in',
-  text: ' and be our first story teller.'
+  textAsLinkToLogIn: 'Log in',
+  textIsNotLoggedIn: ' and be our first story teller.',
+  textAsLinkToPosts: 'share your story!',
+  textIsLoggedIn: "You've logged in, "
 };
 
-export default function Home() {
+export default function Home({ isLoggedIn }) {
+  const textIsLoggedIn = `<Link to="/auth">${VARIABLES.textAsLinkToLogIn}</Link>  ${VARIABLES.textIsNotLoggedIn}`;
+  const textIsNotLoggedIn = `${VARIABLES.textIsLoggedIn} <Link to="/auth">${VARIABLES.textAsLinkToPosts}</Link>`;
   return (
     <div className={styles.homeContainer}>
       <div className={styles.homeContent}>
@@ -20,8 +24,7 @@ export default function Home() {
         </div>
         <div className={styles.textSection}>
           <Typography variant="h4">
-            <Link to="/auth">{VARIABLES.textAsLink}</Link>
-            {VARIABLES.text}
+            {isLoggedIn ? textIsNotLoggedIn : textIsLoggedIn}
           </Typography>
         </div>
         <Route path="/auth">

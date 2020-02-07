@@ -1,6 +1,6 @@
 import React from 'react';
-import './header.css';
-import { Link, Route } from 'react-router-dom';
+import styles from './header.module.css';
+import { Link } from 'react-router-dom';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -17,24 +17,37 @@ function HomeIcon(props) {
   );
 }
 
-export default function Header() {
+const VARIABLES = {
+  home: 'Blog',
+  createPost: 'Create Post',
+  loginButtonLabel: 'Log in',
+  logoutButtonLabel: 'Log out'
+};
+
+export default function Header({ isLoggedIn }) {
   return (
     <AppBar position="static">
-      <Toolbar className="toolbar">
+      <Toolbar className={styles.toolbar}>
         <Link to="/">
           <IconButton edge="start" color="inherit" aria-label="blog">
             <HomeIcon style={{ color: 'white' }} fontSize="large" />
             <Typography variant="h4" style={{ color: 'white' }}>
-              Blog
+              {VARIABLES.home}
             </Typography>
           </IconButton>
         </Link>
-        <Button className="createPostBtn" color="inherit" size="large">
-          Create Post
+        <Button className="{styles.createPostBtn}" color="inherit" size="large">
+          {VARIABLES.createPost}
         </Button>
         <Link to="/auth">
-          <Button className="loginBtn" style={{ color: 'white' }} size="large">
-            Log in
+          <Button
+            className={styles.loginBtn}
+            style={{ color: 'white' }}
+            size="large"
+          >
+            {isLoggedIn
+              ? VARIABLES.logoutButtonLabel
+              : VARIABLES.loginButtonLabel}
           </Button>
         </Link>
       </Toolbar>
