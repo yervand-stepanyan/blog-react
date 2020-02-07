@@ -1,5 +1,6 @@
 import React from 'react';
 import './header.css';
+import { Link, Route } from 'react-router-dom';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -20,16 +21,22 @@ export default function Header() {
   return (
     <AppBar position="static">
       <Toolbar className="toolbar">
-        <IconButton edge="start" color="inherit" aria-label="blog">
-          <HomeIcon style={{ color: 'white' }} fontSize="large" />
-          <Typography variant="h4">Blog</Typography>
-        </IconButton>
+        <Link to="/">
+          <IconButton edge="start" color="inherit" aria-label="blog">
+            <HomeIcon style={{ color: 'white' }} fontSize="large" />
+            <Typography variant="h4" style={{ color: 'white' }}>
+              Blog
+            </Typography>
+          </IconButton>
+        </Link>
         <Button className="createPostBtn" color="inherit" size="large">
           Create Post
         </Button>
-        <Button className="loginBtn" color="inherit" size="large">
-          Log in
-        </Button>
+        <Link to="/auth">
+          <Button className="loginBtn" style={{ color: 'white' }} size="large">
+            Log in
+          </Button>
+        </Link>
       </Toolbar>
     </AppBar>
   );

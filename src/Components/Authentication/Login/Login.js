@@ -1,5 +1,5 @@
 import React from 'react';
-import './login.css';
+import styles from './login.module.css';
 
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -24,20 +24,20 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <div className="loginContainer">
-        <div className="loginContent">
-          <div className="titleSection">
+      <div className={styles.loginContainer}>
+        <div className={styles.loginContent}>
+          <div className={styles.titleSection}>
             <Typography variant="h4">{VARIABLES.title}</Typography>
           </div>
-          <div className="inputSection">
-            <div className="usernameInput">
+          <div>
+            <div className={styles.usernameInput}>
               <TextField
                 id="standard-basic"
                 label={VARIABLES.usernameLabel}
                 fullWidth
               />
             </div>
-            <div className="passwordInput">
+            <div className={styles.passwordInput}>
               <TextField
                 id="standard-password-input"
                 label={VARIABLES.passwordLabel}
@@ -46,7 +46,7 @@ export default class Login extends React.Component {
                 fullWidth
               />
             </div>
-            <div className="loginBtn">
+            <div className={styles.loginBtn}>
               <Button
                 variant="contained"
                 size="large"

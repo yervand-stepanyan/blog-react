@@ -1,0 +1,20 @@
+.homeContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.homeContent {
+    width: 50%;
+}
+
+.titleSection, .textSection {
+    text-align: center;
+}
+
+.titleSection {
+    margin-top: 20px;
+}
+
+.textSection {
+    margin-top: 40px;
+}
