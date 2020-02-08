@@ -14,8 +14,6 @@ const VARIABLES = {
 };
 
 export default function Home({ isLoggedIn }) {
-  const textIsLoggedIn = `<Link to="/auth">${VARIABLES.textAsLinkToLogIn}</Link>  ${VARIABLES.textIsNotLoggedIn}`;
-  const textIsNotLoggedIn = `${VARIABLES.textIsLoggedIn} <Link to="/auth">${VARIABLES.textAsLinkToPosts}</Link>`;
   return (
     <div className={styles.homeContainer}>
       <div className={styles.homeContent}>
@@ -23,9 +21,17 @@ export default function Home({ isLoggedIn }) {
           <Typography variant="h5">{VARIABLES.header}</Typography>
         </div>
         <div className={styles.textSection}>
-          <Typography variant="h4">
-            {isLoggedIn ? textIsNotLoggedIn : textIsLoggedIn}
-          </Typography>
+          {isLoggedIn ? (
+            <Typography variant="h4">
+              {VARIABLES.textIsLoggedIn}{' '}
+              <Link to="/auth">{VARIABLES.textAsLinkToPosts}</Link>
+            </Typography>
+          ) : (
+            <Typography variant="h4">
+              <Link to="/auth">{VARIABLES.textAsLinkToLogIn}</Link>
+              {VARIABLES.textIsNotLoggedIn}
+            </Typography>
+          )}
         </div>
         <Route path="/auth">
           <Login />
