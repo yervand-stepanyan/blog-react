@@ -22,11 +22,29 @@ export default class Login extends React.Component {
     };
   }
 
+  onUsernameChange = event => {
+    this.setState({ username: event.target.value });
+  };
+
+  onPasswordChange = event => {
+    this.setState({ password: event.target.value });
+  };
+
   handleLogIn = () => {
-    this.props.isLoggedIn(true);
+    const { username, password } = this.state;
+
+    if (username && password) {
+      const newUser = { username, password };
+
+      this.setState({ username: '', password: '' }, () =>
+        this.props.isLoggedIn(true, newUser)
+      );
+    }
   };
 
   render() {
+    const { username, password } = this.state;
+
     return (
       <div className={styles.loginContainer}>
         <div className={styles.loginContent}>
@@ -39,6 +57,8 @@ export default class Login extends React.Component {
                 id="standard-basic"
                 label={VARIABLES.usernameLabel}
                 fullWidth
+                value={username}
+                onChange={e => this.onUsernameChange(e)}
               />
             </div>
             <div className={styles.passwordInput}>
@@ -48,6 +68,8 @@ export default class Login extends React.Component {
                 type="password"
                 autoComplete="current-password"
                 fullWidth
+                value={password}
+                onChange={e => this.onPasswordChange(e)}
               />
             </div>
             <div className={styles.loginBtn}>
