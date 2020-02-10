@@ -15,14 +15,14 @@ const VARIABLES = {
   textIsLoggedIn: "You've logged in, "
 };
 
-function Home({ isLoggedIn }) {
+function Home({ classes, isLoggedIn }) {
   return (
-    <div className={styles.homeContainer}>
-      <div className={styles.homeContent}>
-        <div className={styles.titleSection}>
+    <div className={classes.homeContainer}>
+      <div className={classes.homeContent}>
+        <div className={classes.titleSection}>
           <Typography variant="h5">{VARIABLES.header}</Typography>
         </div>
-        <div className={styles.textSection}>
+        <div className={classes.textSection}>
           {isLoggedIn ? (
             <Typography variant="h4">
               {VARIABLES.textIsLoggedIn}{' '}
