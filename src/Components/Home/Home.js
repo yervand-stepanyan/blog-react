@@ -1,7 +1,9 @@
 import React from 'react';
-import styles from './home.module.css';
+import { styles } from './styles';
 import { Link, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
+import { withStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Login from '../Authentication/Login/Login';
 
@@ -13,7 +15,7 @@ const VARIABLES = {
   textIsLoggedIn: "You've logged in, "
 };
 
-export default function Home({ isLoggedIn }) {
+function Home({ isLoggedIn }) {
   return (
     <div className={styles.homeContainer}>
       <div className={styles.homeContent}>
@@ -40,3 +42,9 @@ export default function Home({ isLoggedIn }) {
     </div>
   );
 }
+
+Home.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Home);

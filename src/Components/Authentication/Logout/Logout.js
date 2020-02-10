@@ -1,5 +1,8 @@
 import React from 'react';
-import styles from './logout.module.css';
+import PropTypes from 'prop-types';
+import { styles } from './styles';
+
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
@@ -9,19 +12,20 @@ const VARIABLES = {
   buttonLabel: 'Log out'
 };
 
-export default class Logout extends React.Component {
+class Logout extends React.Component {
   handleLogOut = () => {
     this.props.isLoggedIn(false);
   };
 
   render() {
+    const { classes } = this.props;
     return (
-      <div className={styles.logoutContainer}>
-        <div className={styles.logoutContent}>
-          <div className={styles.logoutTitle}>
+      <div className={classes.logoutContainer}>
+        <div className={classes.logoutContent}>
+          <div className={classes.logoutTitle}>
             <Typography variant="h4">{VARIABLES.title}</Typography>
           </div>
-          <div className={styles.logoutText}>
+          <div className={classes.logoutText}>
             <Typography variant="subtitle1">{VARIABLES.text}</Typography>
           </div>
           <div>
@@ -39,3 +43,9 @@ export default class Logout extends React.Component {
     );
   }
 }
+
+Logout.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Logout);

@@ -1,7 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import styles from './login.module.css';
+import PropTypes from 'prop-types';
+import { styles } from './styles';
 
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -46,15 +48,16 @@ class Login extends React.Component {
 
   render() {
     const { username, password } = this.state;
+    const { classes } = this.props;
 
     return (
-      <div className={styles.loginContainer}>
-        <div className={styles.loginContent}>
-          <div className={styles.titleSection}>
+      <div className={classes.loginContainer}>
+        <div className={classes.loginContent}>
+          <div className={classes.titleSection}>
             <Typography variant="h4">{VARIABLES.title}</Typography>
           </div>
           <div>
-            <div className={styles.usernameInput}>
+            <div className={classes.usernameInput}>
               <TextField
                 id="standard-basic"
                 label={VARIABLES.usernameLabel}
@@ -63,7 +66,7 @@ class Login extends React.Component {
                 onChange={e => this.onUsernameChange(e)}
               />
             </div>
-            <div className={styles.passwordInput}>
+            <div className={classes.passwordInput}>
               <TextField
                 id="standard-password-input"
                 label={VARIABLES.passwordLabel}
@@ -74,7 +77,7 @@ class Login extends React.Component {
                 onChange={e => this.onPasswordChange(e)}
               />
             </div>
-            <div className={styles.loginBtn}>
+            <div className={classes.loginBtn}>
               <Button
                 variant="contained"
                 size="large"
@@ -92,4 +95,8 @@ class Login extends React.Component {
   }
 }
 
-export default withRouter(Login);
+Login.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withRouter(withStyles(styles)(Login));
