@@ -7,8 +7,14 @@ export const styles = {
     color: 'white',
     textDecoration: 'none'
   },
-  loginBtn: {
+  createPostLink: {
+    textDecoration: 'none'
+  },
+  authLink: {
     marginLeft: 'auto',
     textDecoration: 'none'
+  },
+  linkBtn: {
+    color: 'white'
   }
 };

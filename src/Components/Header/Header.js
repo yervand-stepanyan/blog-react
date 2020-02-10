@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import HomeIcon from './HomeIcon';
 import { styles } from './styles';
+import CreatePost from '../CreatePost/CreatePost';
 
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -31,16 +32,18 @@ function Header(props) {
             <Typography variant="h4">{VARIABLES.home}</Typography>
           </IconButton>
         </Link>
-        <Button className="{styles.createPostBtn}" color="inherit" size="large">
-          {VARIABLES.createPost}
-        </Button>
-        <Link to="/auth" className={classes.loginBtn}>
+        <Link to="/create" className={classes.createPostLink}>
+          <Button className={classes.linkBtn} color="inherit" size="large">
+            {VARIABLES.createPost}
+          </Button>
+        </Link>
+        <Link to="/auth" className={classes.authLink}>
           {isLoggedIn ? (
-            <Button style={{ color: 'white' }} size="large">
+            <Button className={classes.linkBtn} size="large">
               {VARIABLES.logoutButtonLabel}
             </Button>
           ) : (
-            <Button style={{ color: 'white' }} size="large">
+            <Button className={classes.linkBtn} size="large">
               {VARIABLES.loginButtonLabel}
             </Button>
           )}

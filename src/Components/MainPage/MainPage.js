@@ -1,12 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
+import { styles } from './styles';
 import Header from '../Header/';
 import Home from '../Home/Home';
 import Login from '../Authentication/Login/Login';
 import Logout from '../Authentication/Logout/Logout';
+import CreatePost from '../CreatePost/CreatePost';
 
-export default class MainPage extends React.Component {
+import { withStyles } from '@material-ui/core';
+
+class MainPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -60,14 +65,18 @@ export default class MainPage extends React.Component {
 
   render() {
     const { isLoggedIn } = this.state;
+    const { classes } = this.props;
 
     return (
-      <div className="mainContainer">
+      <div className={classes.mainContainer}>
         <Router>
           <Header isLoggedIn={isLoggedIn} />
           <Switch>
             <Route exact path="/">
               <Home isLoggedIn={isLoggedIn} />
+            </Route>
+            <Route path="/create">
+              <CreatePost />
             </Route>
             <Route path="/auth">
               {isLoggedIn ? (
@@ -82,3 +91,9 @@ export default class MainPage extends React.Component {
     );
   }
 }
+
+MainPage.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(MainPage);
