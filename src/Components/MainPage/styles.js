@@ -1,6 +1,6 @@
 export const styles = {
   mainContainer: {
-    backgroundColor: 'rgb(238, 238, 238)',
+    backgroundColor: '#f9f9f9',
     height: '100vh'
   }
 };

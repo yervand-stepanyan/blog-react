@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import HomeIcon from './HomeIcon';
 import { styles } from './styles';
-import CreatePost from '../CreatePost/CreatePost';
 
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
