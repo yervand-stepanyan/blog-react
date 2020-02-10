@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import styles from './login.module.css';
 
 import Typography from '@material-ui/core/Typography';
@@ -12,7 +13,7 @@ const VARIABLES = {
   buttonLabel: 'Log In'
 };
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
 
@@ -36,9 +37,10 @@ export default class Login extends React.Component {
     if (username && password) {
       const newUser = { username, password };
 
-      this.setState({ username: '', password: '' }, () =>
-        this.props.isLoggedIn(true, newUser)
-      );
+      this.setState({ username: '', password: '' }, () => {
+        this.props.isLoggedIn(true, newUser);
+        this.props.history.push('/');
+      });
     }
   };
 
@@ -89,3 +91,5 @@ export default class Login extends React.Component {
     );
   }
 }
+
+export default withRouter(Login);

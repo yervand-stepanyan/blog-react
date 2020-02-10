@@ -20,8 +20,21 @@ export default class MainPage extends React.Component {
     };
   }
 
-  handleAuth = isLoggedIn => {
-    this.setState({ isLoggedIn: isLoggedIn });
+  handleLogOut = isLoggedIn => {
+    const { users } = this.state;
+
+    const newUsers = users.map(user => ({
+      ...user,
+      isOnline: false
+    }));
+
+    this.setState(
+      {
+        users: newUsers,
+        isLoggedIn: isLoggedIn
+      },
+      () => localStorage.setItem('users', JSON.stringify(this.state.users))
+    );
   };
 
   handleLogIn = (isLoggedIn, user) => {
@@ -41,12 +54,7 @@ export default class MainPage extends React.Component {
         currentId: state.currentId + 1,
         isLoggedIn: isLoggedIn
       }),
-      () => {
-        localStorage.setItem('users', JSON.stringify(this.state.users));
-        // this.props.history.push('/');
-        // Router.history.push('/');
-        // this.history.push('/');
-      }
+      () => localStorage.setItem('users', JSON.stringify(this.state.users))
     );
   };
 
@@ -63,7 +71,7 @@ export default class MainPage extends React.Component {
             </Route>
             <Route path="/auth">
               {isLoggedIn ? (
-                <Logout isLoggedIn={this.handleAuth} />
+                <Logout isLoggedIn={this.handleLogOut} />
               ) : (
                 <Login isLoggedIn={this.handleLogIn} />
               )}
