@@ -12,7 +12,8 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
     handleLogOut,
     handleCreatePostClick,
     isCreatePostClicked,
-    currentUserId
+    currentUserId,
+    handlePostAdd
   } = rest;
 
   if (path === '/auth') {
@@ -36,7 +37,10 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
   } else {
     return isLoggedIn ? (
       <Route path={path}>
-        <Component currentUserId={currentUserId} />
+        <Component
+          currentUserId={currentUserId}
+          handlePostAdd={handlePostAdd}
+        />
       </Route>
     ) : (
       <Redirect to={{ pathname: '/auth' }} />

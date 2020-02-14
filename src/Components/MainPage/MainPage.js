@@ -9,6 +9,7 @@ import CreatePost from '../CreatePost';
 import ProtectedRoute from '../ProtectedRoute';
 
 import { withStyles } from '@material-ui/core';
+import Posts from '../PostsComponent';
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -16,13 +17,15 @@ class MainPage extends React.Component {
 
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const currentId = users.length > 0 ? users[users.length - 1].id + 1 : 1;
+    const posts = JSON.parse(localStorage.getItem('posts')) || [];
 
     this.state = {
       isLoggedIn: false,
       users,
       currentId,
       isCreatePostClicked: false,
-      currentUserId: ''
+      currentUserId: '',
+      posts
     };
   }
 
@@ -44,10 +47,7 @@ class MainPage extends React.Component {
         isLoggedIn: isLoggedIn,
         currentUserId: state.currentId
       }),
-      () => {
-        console.log(this.state.currentUserId);
-        localStorage.setItem('users', JSON.stringify(this.state.users));
-      }
+      () => localStorage.setItem('users', JSON.stringify(this.state.users))
     );
   };
 
@@ -72,8 +72,17 @@ class MainPage extends React.Component {
     this.setState({ isCreatePostClicked: isClicked });
   };
 
+  handlePostAdd = posts => {
+    this.setState({ posts: posts });
+  };
+
   render() {
-    const { isLoggedIn, isCreatePostClicked, currentUserId } = this.state;
+    const {
+      isLoggedIn,
+      isCreatePostClicked,
+      currentUserId,
+      posts
+    } = this.state;
     const { classes } = this.props;
 
     return (
@@ -85,13 +94,14 @@ class MainPage extends React.Component {
           />
           <Switch>
             <Route exact path="/">
-              <Home isLoggedIn={isLoggedIn} />
+              {posts.length > 0 ? <Posts /> : <Home isLoggedIn={isLoggedIn} />}
             </Route>
             <ProtectedRoute
               path={'/create'}
               isLoggedIn={isLoggedIn}
               component={CreatePost}
               currentUserId={currentUserId}
+              handlePostAdd={this.handlePostAdd}
             />
             <ProtectedRoute
               path={'/auth'}
