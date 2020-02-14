@@ -14,7 +14,16 @@ const VARIABLES = {
 
 class Logout extends React.Component {
   handleLogOut = () => {
-    this.props.isLoggedIn(false);
+    const {
+      isLoggedIn,
+      isCreatePostClicked,
+      handleCreatePostClick
+    } = this.props;
+    isLoggedIn(false);
+
+    if (isCreatePostClicked) {
+      handleCreatePostClick(false);
+    }
   };
 
   render() {

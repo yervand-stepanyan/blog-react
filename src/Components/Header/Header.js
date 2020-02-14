@@ -19,37 +19,61 @@ const VARIABLES = {
   logoutButtonLabel: 'Log out'
 };
 
-function Header(props) {
-  const { classes, isLoggedIn } = props;
+class Header extends React.Component {
+  handleCreatePostClick = icClicked => {
+    const { isLoggedIn, handleCreatePostClick } = this.props;
 
-  return (
-    <AppBar position="static">
-      <Toolbar className={classes.toolbar}>
-        <Link to="/" className={classes.logo}>
-          <IconButton edge="start" color="inherit" aria-label="blog">
-            <HomeIcon fontSize="large" />
-            <Typography variant="h4">{VARIABLES.home}</Typography>
-          </IconButton>
-        </Link>
-        <Link to="/create" className={classes.createPostLink}>
-          <Button className={classes.linkBtn} color="inherit" size="large">
-            {VARIABLES.createPost}
-          </Button>
-        </Link>
-        <Link to="/auth" className={classes.authLink}>
-          {isLoggedIn ? (
-            <Button className={classes.linkBtn} size="large">
-              {VARIABLES.logoutButtonLabel}
+    if (!isLoggedIn) {
+      handleCreatePostClick(icClicked);
+    }
+  };
+
+  render() {
+    const { classes, isLoggedIn } = this.props;
+
+    return (
+      <AppBar position="static">
+        <Toolbar className={classes.toolbar}>
+          <Link to="/" className={classes.logo}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="blog"
+              onClick={e => this.handleCreatePostClick(false, e)}
+            >
+              <HomeIcon fontSize="large" />
+              <Typography variant="h4">{VARIABLES.home}</Typography>
+            </IconButton>
+          </Link>
+          <Link to="/create" className={classes.createPostLink}>
+            <Button
+              className={classes.linkBtn}
+              color="inherit"
+              size="large"
+              onClick={() => this.handleCreatePostClick(true)}
+            >
+              {VARIABLES.createPost}
             </Button>
-          ) : (
-            <Button className={classes.linkBtn} size="large">
-              {VARIABLES.loginButtonLabel}
-            </Button>
-          )}
-        </Link>
-      </Toolbar>
-    </AppBar>
-  );
+          </Link>
+          <Link to="/auth" className={classes.authLink}>
+            {isLoggedIn ? (
+              <Button className={classes.linkBtn} size="large">
+                {VARIABLES.logoutButtonLabel}
+              </Button>
+            ) : (
+              <Button
+                className={classes.linkBtn}
+                size="large"
+                onClick={() => this.handleCreatePostClick(false)}
+              >
+                {VARIABLES.loginButtonLabel}
+              </Button>
+            )}
+          </Link>
+        </Toolbar>
+      </AppBar>
+    );
+  }
 }
 
 Header.propTypes = {

@@ -3,11 +3,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { styles } from './styles';
-import Header from '../Header/';
-import Home from '../Home/Home';
-import Login from '../Authentication/Login/Login';
-import Logout from '../Authentication/Logout/Logout';
-import CreatePost from '../CreatePost/CreatePost';
+import Header from '../Header';
+import Home from '../Home';
+import CreatePost from '../CreatePost';
+import ProtectedRoute from '../ProtectedRoute';
 
 import { withStyles } from '@material-ui/core';
 
@@ -21,26 +20,10 @@ class MainPage extends React.Component {
     this.state = {
       isLoggedIn: false,
       users,
-      currentId
+      currentId,
+      isCreatePostClicked: false
     };
   }
-
-  handleLogOut = isLoggedIn => {
-    const { users } = this.state;
-
-    const newUsers = users.map(user => ({
-      ...user,
-      isOnline: false
-    }));
-
-    this.setState(
-      {
-        users: newUsers,
-        isLoggedIn: isLoggedIn
-      },
-      () => localStorage.setItem('users', JSON.stringify(this.state.users))
-    );
-  };
 
   handleLogIn = (isLoggedIn, user) => {
     const { username, password } = user;
@@ -63,28 +46,58 @@ class MainPage extends React.Component {
     );
   };
 
+  handleLogOut = isLoggedIn => {
+    const { users } = this.state;
+
+    const newUsers = users.map(user => ({
+      ...user,
+      isOnline: false
+    }));
+
+    this.setState(
+      {
+        users: newUsers,
+        isLoggedIn: isLoggedIn
+      },
+      () => localStorage.setItem('users', JSON.stringify(this.state.users))
+    );
+  };
+
+  handleCreatePostClick = isClicked => {
+    this.setState({ isCreatePostClicked: isClicked }, () =>
+      console.log('isCreatePostClicked:', this.state.isCreatePostClicked)
+    );
+  };
+
   render() {
-    const { isLoggedIn } = this.state;
+    const { isLoggedIn, isCreatePostClicked } = this.state;
     const { classes } = this.props;
 
     return (
       <div className={classes.mainContainer}>
         <Router>
-          <Header isLoggedIn={isLoggedIn} />
+          <Header
+            isLoggedIn={isLoggedIn}
+            isCreatePostClicked={isCreatePostClicked}
+            handleCreatePostClick={this.handleCreatePostClick}
+          />
           <Switch>
             <Route exact path="/">
               <Home isLoggedIn={isLoggedIn} />
             </Route>
-            <Route path="/create">
-              <CreatePost />
-            </Route>
-            <Route path="/auth">
-              {isLoggedIn ? (
-                <Logout isLoggedIn={this.handleLogOut} />
-              ) : (
-                <Login isLoggedIn={this.handleLogIn} />
-              )}
-            </Route>
+            <ProtectedRoute
+              path={'/create'}
+              isLoggedIn={isLoggedIn}
+              component={CreatePost}
+            />
+            <ProtectedRoute
+              path={'/auth'}
+              isLoggedIn={isLoggedIn}
+              isCreatePostClicked={isCreatePostClicked}
+              handleLogIn={this.handleLogIn}
+              handleLogOut={this.handleLogOut}
+              handleCreatePostClick={this.handleCreatePostClick}
+            />
           </Switch>
         </Router>
       </div>

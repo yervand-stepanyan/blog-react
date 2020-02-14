@@ -35,13 +35,26 @@ class Login extends React.Component {
 
   handleLogIn = () => {
     const { username, password } = this.state;
+    const {
+      isLoggedIn,
+      history,
+      isCreatePostClicked,
+      handleCreatePostClick
+    } = this.props;
 
     if (username && password) {
       const newUser = { username, password };
 
       this.setState({ username: '', password: '' }, () => {
-        this.props.isLoggedIn(true, newUser);
-        this.props.history.push('/');
+        isLoggedIn(true, newUser);
+
+        if (isCreatePostClicked) {
+          history.push('/create');
+
+          handleCreatePostClick(false);
+        } else {
+          history.push('/');
+        }
       });
     }
   };
