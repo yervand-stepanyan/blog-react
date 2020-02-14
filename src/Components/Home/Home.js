@@ -26,7 +26,7 @@ function Home({ classes, isLoggedIn }) {
           {isLoggedIn ? (
             <Typography variant="h4">
               {VARIABLES.textIsLoggedIn}{' '}
-              <Link to="/auth">{VARIABLES.textAsLinkToPosts}</Link>
+              <Link to="/create">{VARIABLES.textAsLinkToPosts}</Link>
             </Typography>
           ) : (
             <Typography variant="h4">

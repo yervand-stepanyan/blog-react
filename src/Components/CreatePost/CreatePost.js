@@ -1,6 +1,7 @@
 import React from 'react';
 import { styles } from './styles';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
@@ -14,8 +15,80 @@ const VARIABLES = {
   title: 'Tell us your story!'
 };
 
+const monthNames = [
+  'JAN',
+  'FEB',
+  'MAR',
+  'APR',
+  'MAY',
+  'JUN',
+  'JUL',
+  'AUG',
+  'SEP',
+  'OCT',
+  'NOV',
+  'DEC'
+];
+
 class CreatePost extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const posts = JSON.parse(localStorage.getItem('posts')) || [];
+    const currentId = posts.length > 0 ? posts[posts.length - 1].id + 1 : 1;
+
+    this.state = {
+      title: '',
+      content: '',
+      posts,
+      currentId,
+      currentUserId: this.props.currentUserId
+    };
+  }
+
+  onTitleChange = event => {
+    this.setState({ title: event.target.value });
+  };
+
+  onContentChange = event => {
+    this.setState({ content: event.target.value });
+  };
+
+  onPostAdd = () => {
+    const date = new Date();
+    const now =
+      monthNames[date.getMonth()] +
+      ' ' +
+      date.getDate() +
+      ' ' +
+      date.getFullYear();
+
+    this.setState(
+      state => ({
+        posts: [
+          ...state.posts,
+          {
+            id: state.currentId,
+            title: state.title,
+            content: state.content,
+            date: now,
+            userId: state.currentUserId
+          }
+        ],
+        currentId: state.currentId + 1,
+        title: '',
+        content: ''
+      }),
+      () => {
+        localStorage.setItem('posts', JSON.stringify(this.state.posts));
+
+        this.props.history.push('/');
+      }
+    );
+  };
+
   render() {
+    const { title, content } = this.state;
     const { classes } = this.props;
 
     return (
@@ -32,6 +105,8 @@ class CreatePost extends React.Component {
                   placeholder="Write the title..."
                   id="standard-basic"
                   label="* Title"
+                  value={title}
+                  onChange={e => this.onTitleChange(e)}
                 />
               </div>
               <div className={classes.contentDiv}>
@@ -42,10 +117,12 @@ class CreatePost extends React.Component {
                   label="* Content"
                   multiline
                   rows="10"
+                  value={content}
+                  onChange={e => this.onContentChange(e)}
                 />
               </div>
               <div className={classes.btnDiv}>
-                <Fab color="primary">
+                <Fab color="primary" onClick={this.onPostAdd}>
                   <CheckIcon />
                 </Fab>
               </div>
@@ -61,4 +138,4 @@ CreatePost.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(CreatePost);
+export default withRouter(withStyles(styles)(CreatePost));

@@ -21,7 +21,8 @@ class MainPage extends React.Component {
       isLoggedIn: false,
       users,
       currentId,
-      isCreatePostClicked: false
+      isCreatePostClicked: false,
+      currentUserId: ''
     };
   }
 
@@ -40,9 +41,13 @@ class MainPage extends React.Component {
           }
         ],
         currentId: state.currentId + 1,
-        isLoggedIn: isLoggedIn
+        isLoggedIn: isLoggedIn,
+        currentUserId: state.currentId
       }),
-      () => localStorage.setItem('users', JSON.stringify(this.state.users))
+      () => {
+        console.log(this.state.currentUserId);
+        localStorage.setItem('users', JSON.stringify(this.state.users));
+      }
     );
   };
 
@@ -64,13 +69,11 @@ class MainPage extends React.Component {
   };
 
   handleCreatePostClick = isClicked => {
-    this.setState({ isCreatePostClicked: isClicked }, () =>
-      console.log('isCreatePostClicked:', this.state.isCreatePostClicked)
-    );
+    this.setState({ isCreatePostClicked: isClicked });
   };
 
   render() {
-    const { isLoggedIn, isCreatePostClicked } = this.state;
+    const { isLoggedIn, isCreatePostClicked, currentUserId } = this.state;
     const { classes } = this.props;
 
     return (
@@ -78,7 +81,6 @@ class MainPage extends React.Component {
         <Router>
           <Header
             isLoggedIn={isLoggedIn}
-            isCreatePostClicked={isCreatePostClicked}
             handleCreatePostClick={this.handleCreatePostClick}
           />
           <Switch>
@@ -89,6 +91,7 @@ class MainPage extends React.Component {
               path={'/create'}
               isLoggedIn={isLoggedIn}
               component={CreatePost}
+              currentUserId={currentUserId}
             />
             <ProtectedRoute
               path={'/auth'}
