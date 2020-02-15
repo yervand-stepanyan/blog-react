@@ -7,5 +7,12 @@ export const styles = {
   titleSection: {
     margin: '20px'
   },
-  title: { fontWeight: 'bold' }
+  title: { fontWeight: 'bold' },
+  postSection: {
+    width: '100%'
+  },
+  ul: {
+    padding: 0,
+    margin: 0
+  }
 };
