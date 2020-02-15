@@ -10,8 +10,14 @@ export const styles = {
     marginTop: '20px',
     textAlign: 'center'
   },
+  title: {
+    fontWeight: 'bold'
+  },
   textSection: {
     marginTop: '40px',
     textAlign: 'center'
+  },
+  text: {
+    fontWeight: 'bold'
   }
 };

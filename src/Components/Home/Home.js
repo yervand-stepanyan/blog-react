@@ -20,16 +20,18 @@ function Home({ classes, isLoggedIn }) {
     <div className={classes.homeContainer}>
       <div className={classes.homeContent}>
         <div className={classes.titleSection}>
-          <Typography variant="h5">{VARIABLES.header}</Typography>
+          <Typography variant="h5" className={classes.title}>
+            {VARIABLES.header}
+          </Typography>
         </div>
         <div className={classes.textSection}>
           {isLoggedIn ? (
-            <Typography variant="h4">
+            <Typography variant="h4" className={classes.text}>
               {VARIABLES.textIsLoggedIn}{' '}
               <Link to="/create">{VARIABLES.textAsLinkToPosts}</Link>
             </Typography>
           ) : (
-            <Typography variant="h4">
+            <Typography variant="h4" className={classes.text}>
               <Link to="/auth">{VARIABLES.textAsLinkToLogIn}</Link>
               {VARIABLES.textIsNotLoggedIn}
             </Typography>

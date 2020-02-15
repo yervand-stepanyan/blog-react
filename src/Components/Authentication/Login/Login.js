@@ -67,7 +67,9 @@ class Login extends React.Component {
       <div className={classes.loginContainer}>
         <div className={classes.loginContent}>
           <div className={classes.titleSection}>
-            <Typography variant="h4">{VARIABLES.title}</Typography>
+            <Typography variant="h4" className={classes.title}>
+              {VARIABLES.title}
+            </Typography>
           </div>
           <div>
             <div className={classes.usernameInput}>

@@ -31,11 +31,13 @@ class Logout extends React.Component {
     return (
       <div className={classes.logoutContainer}>
         <div className={classes.logoutContent}>
-          <div className={classes.logoutTitle}>
-            <Typography variant="h4">{VARIABLES.title}</Typography>
+          <div className={classes.logoutTitleSection}>
+            <Typography variant="h4" className={classes.title}>
+              {VARIABLES.title}
+            </Typography>
           </div>
           <div className={classes.logoutText}>
-            <Typography variant="subtitle1">{VARIABLES.text}</Typography>
+            <Typography variant="h6">{VARIABLES.text}</Typography>
           </div>
           <div>
             <Button

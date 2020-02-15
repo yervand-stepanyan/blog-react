@@ -9,6 +9,9 @@ export const styles = {
   titleSection: {
     marginTop: '20px'
   },
+  title: {
+    fontWeight: 'bold'
+  },
   usernameInput: {
     marginTop: '16px',
     marginBottom: '8px'

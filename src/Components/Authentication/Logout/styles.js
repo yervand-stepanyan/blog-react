@@ -9,8 +9,11 @@ export const styles = {
     alignItems: 'center',
     width: '50%'
   },
-  logoutTitle: {
+  logoutTitleSection: {
     margin: '20px 0'
+  },
+  title: {
+    fontWeight: 'bold'
   },
   logoutText: {
     margin: '16px 0'
