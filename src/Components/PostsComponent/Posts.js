@@ -39,7 +39,6 @@ class Posts extends React.Component {
             ))}
           </ul>
         </div>
-        {/*<div>{posts}</div>*/}
       </div>
     );
   }

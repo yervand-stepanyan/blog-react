@@ -8,6 +8,7 @@ export const styles = {
     textDecoration: 'none'
   },
   createPostLink: {
+    marginLeft: '40px',
     textDecoration: 'none'
   },
   authLink: {

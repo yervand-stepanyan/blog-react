@@ -18,9 +18,10 @@ class MainPage extends React.Component {
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const currentId = users.length > 0 ? users[users.length - 1].id + 1 : 1;
     const posts = JSON.parse(localStorage.getItem('posts')) || [];
+    const isLoggedIn = users.some(user => user.isOnline);
 
     this.state = {
-      isLoggedIn: false,
+      isLoggedIn,
       users,
       currentId,
       isCreatePostClicked: false,
@@ -31,24 +32,45 @@ class MainPage extends React.Component {
 
   handleLogIn = (isLoggedIn, user) => {
     const { username, password } = user;
+    const { users } = this.state;
 
-    this.setState(
-      state => ({
-        users: [
-          ...state.users,
-          {
-            id: state.currentId,
-            username: username,
-            password: password,
-            isOnline: true
-          }
-        ],
-        currentId: state.currentId + 1,
-        isLoggedIn: isLoggedIn,
-        currentUserId: state.currentId
-      }),
-      () => localStorage.setItem('users', JSON.stringify(this.state.users))
+    const loggedUser = users.find(
+      user => user.username === username && user.password === password
     );
+
+    if (loggedUser) {
+      this.setState(
+        state => ({
+          users: state.users.map(user =>
+            user.id === loggedUser.id
+              ? { ...user, isOnline: true }
+              : { ...user, isOnline: false }
+          ),
+          currentId: state.users[state.users.length - 1].id + 1,
+          isLoggedIn: isLoggedIn,
+          currentUserId: loggedUser.id
+        }),
+        () => localStorage.setItem('users', JSON.stringify(this.state.users))
+      );
+    } else {
+      this.setState(
+        state => ({
+          users: [
+            ...state.users,
+            {
+              id: state.currentId,
+              username: username,
+              password: password,
+              isOnline: true
+            }
+          ],
+          currentId: state.currentId + 1,
+          isLoggedIn: isLoggedIn,
+          currentUserId: state.currentId
+        }),
+        () => localStorage.setItem('users', JSON.stringify(this.state.users))
+      );
+    }
   };
 
   handleLogOut = isLoggedIn => {

@@ -14,7 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 const VARIABLES = {
   home: 'Blog',
-  createPost: 'Create PostComponent',
+  createPost: 'Create Post',
   loginButtonLabel: 'Log in',
   logoutButtonLabel: 'Log out'
 };
