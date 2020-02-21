@@ -15,6 +15,7 @@ function Post(props) {
   const { title, content, date, userId } = props.post;
   const users = JSON.parse(localStorage.getItem('users'));
   const user = users.find(user => user.id === userId);
+  const avatar = user.username[0].toUpperCase();
 
   return (
     <div className={classes.postContainer}>
@@ -23,7 +24,7 @@ function Post(props) {
           <CardContent className={classes.CardContent}>
             <div className={classes.titleSection}>
               <div className={classes.avatarSection}>
-                <Avatar className={classes.avatar}>{user.username}</Avatar>
+                <Avatar className={classes.avatar}>{avatar}</Avatar>
               </div>
               <div>
                 <Typography gutterBottom>{title}</Typography>

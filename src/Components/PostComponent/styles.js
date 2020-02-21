@@ -21,7 +21,9 @@ export const styles = {
     display: 'flex',
     padding: '16px 24px'
   },
-  avatarSection: { marginRight: '16px' },
+  avatarSection: {
+    margin: 'auto 16px auto 0'
+  },
   avatar: {
     backgroundColor: red[500]
   },

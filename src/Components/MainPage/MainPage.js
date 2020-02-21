@@ -19,13 +19,16 @@ class MainPage extends React.Component {
     const currentId = users.length > 0 ? users[users.length - 1].id + 1 : 1;
     const posts = JSON.parse(localStorage.getItem('posts')) || [];
     const isLoggedIn = users.some(user => user.isOnline);
+    const currentUserId = isLoggedIn
+      ? users.find(user => user.isOnline).id
+      : '';
 
     this.state = {
       isLoggedIn,
       users,
       currentId,
       isCreatePostClicked: false,
-      currentUserId: '',
+      currentUserId,
       posts
     };
   }

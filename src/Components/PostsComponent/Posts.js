@@ -22,7 +22,7 @@ class Posts extends React.Component {
   }
 
   render() {
-    const { posts } = this.state;
+    const posts = this.state.posts.reverse();
     const { classes } = this.props;
 
     return (
