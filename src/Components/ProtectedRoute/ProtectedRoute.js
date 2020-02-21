@@ -13,7 +13,8 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
     handleCreatePostClick,
     isCreatePostClicked,
     currentUserId,
-    handlePostAdd
+    handlePostAdd,
+    posts
   } = rest;
 
   if (path === '/blog-react/auth') {
@@ -40,6 +41,7 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
         <Component
           currentUserId={currentUserId}
           handlePostAdd={handlePostAdd}
+          posts={posts}
         />
       </Route>
     ) : (
