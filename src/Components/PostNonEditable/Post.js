@@ -1,6 +1,7 @@
 import React from 'react';
 import { styles } from './styles';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
@@ -12,7 +13,7 @@ import Avatar from '@material-ui/core/Avatar';
 
 function Post(props) {
   const { classes } = props;
-  const { title, content, date, userId } = props.post;
+  const { title, content, date, userId, id } = props.post;
   const users = JSON.parse(localStorage.getItem('users'));
   const user = users.find(user => user.id === userId);
   const avatar = user.username[0].toUpperCase();
@@ -38,9 +39,14 @@ function Post(props) {
             </div>
           </CardContent>
           <CardActions className={classes.CardActions}>
-            <Button size="medium" color="secondary">
-              Learn More
-            </Button>
+            <Link
+              to={`/blog-react/post/${id}`}
+              className={classes.learnMoreLink}
+            >
+              <Button size="medium" color="secondary">
+                Learn More
+              </Button>
+            </Link>
           </CardActions>
         </Card>
       </div>

@@ -7,9 +7,10 @@ import Header from '../Header';
 import Home from '../Home';
 import CreatePost from '../CreatePost';
 import ProtectedRoute from '../ProtectedRoute';
+import Posts from '../PostsComponent';
+import PostDetails from '../PostDetails';
 
 import { withStyles } from '@material-ui/core';
-import Posts from '../PostsComponent';
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -118,23 +119,28 @@ class MainPage extends React.Component {
             handleCreatePostClick={this.handleCreatePostClick}
           />
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/blog-react/">
               {posts.length > 0 ? <Posts /> : <Home isLoggedIn={isLoggedIn} />}
             </Route>
             <ProtectedRoute
-              path={'/create'}
+              path={'/blog-react/create'}
               isLoggedIn={isLoggedIn}
               component={CreatePost}
               currentUserId={currentUserId}
               handlePostAdd={this.handlePostAdd}
             />
             <ProtectedRoute
-              path={'/auth'}
+              path={'/blog-react/auth'}
               isLoggedIn={isLoggedIn}
               isCreatePostClicked={isCreatePostClicked}
               handleLogIn={this.handleLogIn}
               handleLogOut={this.handleLogOut}
               handleCreatePostClick={this.handleCreatePostClick}
+            />
+            <ProtectedRoute
+              path={'/blog-react/post/:id'}
+              isLoggedIn={isLoggedIn}
+              component={PostDetails}
             />
           </Switch>
         </Router>

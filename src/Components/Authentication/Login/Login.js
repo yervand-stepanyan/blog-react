@@ -49,11 +49,11 @@ class Login extends React.Component {
         isLoggedIn(true, newUser);
 
         if (isCreatePostClicked) {
-          history.push('/create');
+          history.push('/blog-react/create');
 
           handleCreatePostClick(false);
         } else {
-          history.push('/');
+          history.push('/blog-react/');
         }
       });
     }

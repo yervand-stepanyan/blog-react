@@ -32,5 +32,8 @@ export const styles = {
   },
   CardActions: {
     justifyContent: 'flex-end'
+  },
+  learnMoreLink: {
+    textDecoration: 'none'
   }
 };

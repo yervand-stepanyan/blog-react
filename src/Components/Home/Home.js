@@ -28,16 +28,16 @@ function Home({ classes, isLoggedIn }) {
           {isLoggedIn ? (
             <Typography variant="h4" className={classes.text}>
               {VARIABLES.textIsLoggedIn}{' '}
-              <Link to="/create">{VARIABLES.textAsLinkToPosts}</Link>
+              <Link to="/blog-react/create">{VARIABLES.textAsLinkToPosts}</Link>
             </Typography>
           ) : (
             <Typography variant="h4" className={classes.text}>
-              <Link to="/auth">{VARIABLES.textAsLinkToLogIn}</Link>
+              <Link to="/blog-react/auth">{VARIABLES.textAsLinkToLogIn}</Link>
               {VARIABLES.textIsNotLoggedIn}
             </Typography>
           )}
         </div>
-        <Route path="/auth">
+        <Route path="/blog-react/auth">
           <Login />
         </Route>
       </div>

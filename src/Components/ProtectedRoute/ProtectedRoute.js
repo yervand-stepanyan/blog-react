@@ -16,7 +16,7 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
     handlePostAdd
   } = rest;
 
-  if (path === '/auth') {
+  if (path === '/blog-react/auth') {
     return isLoggedIn ? (
       <Route path={path}>
         <Logout
@@ -43,7 +43,7 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
         />
       </Route>
     ) : (
-      <Redirect to={{ pathname: '/auth' }} />
+      <Redirect to={{ pathname: '/blog-react/auth' }} />
     );
   }
 }
