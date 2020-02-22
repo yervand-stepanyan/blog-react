@@ -32,17 +32,19 @@ class CreateComment extends React.Component {
 
     this.state = {
       comment: '',
-      comments,
+      // comments,
       currentId,
       postId: this.props.post.id,
       userId: this.props.post.userId
     };
   }
+
   onCommentChange = event => {
     this.setState({ comment: event.target.value });
   };
 
   onCommentAdd = () => {
+    const { currentId, comment, userId, postId } = this.state;
     const date = new Date();
     const now =
       monthNames[date.getMonth()] +
@@ -51,25 +53,21 @@ class CreateComment extends React.Component {
       ' ' +
       date.getFullYear();
 
+    const newComment = {
+      id: currentId,
+      comment,
+      date: now,
+      userId,
+      postId
+    };
+
     this.setState(
       state => ({
-        comments: [
-          ...state.comments,
-          {
-            id: state.currentId,
-            comment: state.comment,
-            date: now,
-            userId: state.userId,
-            postId: state.postId
-          }
-        ],
         currentId: state.currentId + 1,
         comment: ''
       }),
       () => {
-        localStorage.setItem('comments', JSON.stringify(this.state.comments));
-
-        this.props.onCommentAdd(this.state.comments);
+        this.props.onCommentAdd(newComment);
       }
     );
   };

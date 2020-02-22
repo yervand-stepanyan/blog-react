@@ -20,13 +20,10 @@ class Post extends React.Component {
   constructor(props) {
     super(props);
 
-    const { posts } = this.props;
-    const { post } = this.props;
+    const { posts, post, comments, currentUserId } = this.props;
     const content = post.content;
-    const { comments } = this.props;
-    const { currentUserId } = this.props;
     const users = JSON.parse(localStorage.getItem('users'));
-    const user = users.find(user => user.id === this.props.post.userId);
+    const user = users.find(user => user.id === post.userId);
 
     this.state = {
       posts,

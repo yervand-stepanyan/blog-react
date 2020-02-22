@@ -35,8 +35,19 @@ class PostDetails extends React.Component {
     };
   }
 
-  onCommentAdd = comments => {
-    this.setState({ comments });
+  onCommentAdd = comment => {
+    this.setState(
+      state => ({
+        comments: [...state.comments, comment]
+      }),
+      () => {
+        localStorage.setItem('comments', JSON.stringify(this.state.comments));
+      }
+    );
+  };
+
+  onCommentRemove = comments => {
+    this.setState({ comments: comments });
   };
 
   render() {
@@ -65,10 +76,18 @@ class PostDetails extends React.Component {
           </Typography>
         </div>
         <div className={classes.createCommentSection}>
-          <CreateComment post={post} onCommentAdd={this.onCommentAdd} />
+          <CreateComment
+            post={post}
+            onCommentAdd={this.onCommentAdd}
+            comments={comments}
+          />
         </div>
         <div className={classes.commentsSection}>
-          <Comments comments={comments} />
+          <Comments
+            comments={comments}
+            currentUserId={currentUserId}
+            onCommentRemove={this.onCommentRemove}
+          />
         </div>
       </div>
     );

@@ -34,8 +34,11 @@ export const styles = {
   editIcon: {
     marginLeft: 'auto'
   },
-  contentSection: {
+  commentSection: {
     padding: '16px 24px'
+  },
+  commentTextField: {
+    width: '100%'
   },
   CardActions: {
     justifyContent: 'flex-end'
