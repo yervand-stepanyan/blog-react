@@ -13,8 +13,7 @@ export const styles = {
   postSection: {
     width: '100%'
   },
-  ul: {
-    padding: 0,
-    margin: 0
+  createCommentSection: {
+    width: '75%'
   }
 };

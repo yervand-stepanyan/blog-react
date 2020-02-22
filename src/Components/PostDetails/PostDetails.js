@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { styles } from './styles';
 import Post from '../PostEditable';
+import CreateComment from '../CreateComment';
 
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core';
@@ -42,6 +43,9 @@ class PostDetails extends React.Component {
           <Typography className={classes.title} variant="h5">
             {VARIABLES.titleComment}
           </Typography>
+        </div>
+        <div className={classes.createCommentSection}>
+          <CreateComment post={post} />
         </div>
       </div>
     );
