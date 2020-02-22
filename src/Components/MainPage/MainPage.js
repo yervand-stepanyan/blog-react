@@ -141,6 +141,7 @@ class MainPage extends React.Component {
               path={'/blog-react/post/:id'}
               isLoggedIn={isLoggedIn}
               component={PostDetails}
+              currentUserId={currentUserId}
               posts={posts}
             />
           </Switch>
