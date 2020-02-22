@@ -41,7 +41,7 @@ class PostDetails extends React.Component {
 
   render() {
     const { posts, post, comments } = this.state;
-    const { classes } = this.props;
+    const { classes, currentUserId } = this.props;
 
     return (
       <div className={classes.postsContainer}>
@@ -51,7 +51,13 @@ class PostDetails extends React.Component {
           </Typography>
         </div>
         <div className={classes.postSection}>
-          <Post key={post.id} post={post} posts={posts} comments={comments} />
+          <Post
+            key={post.id}
+            post={post}
+            posts={posts}
+            comments={comments}
+            currentUserId={currentUserId}
+          />
         </div>
         <div className={classes.titleSection}>
           <Typography className={classes.title} variant="h5">

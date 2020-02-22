@@ -24,12 +24,18 @@ class Post extends React.Component {
     const { post } = this.props;
     const content = post.content;
     const { comments } = this.props;
+    const { currentUserId } = this.props;
+    const users = JSON.parse(localStorage.getItem('users'));
+    const user = users.find(user => user.id === this.props.post.userId);
 
     this.state = {
       posts,
       post,
       content,
       comments,
+      currentUserId,
+      users,
+      user,
       isEdit: false
     };
   }
@@ -77,12 +83,11 @@ class Post extends React.Component {
   };
 
   render() {
-    const { content, isEdit } = this.state;
+    const { content, isEdit, user, currentUserId } = this.state;
     const { classes } = this.props;
-    const { title, date, userId } = this.state.post;
-    const users = JSON.parse(localStorage.getItem('users'));
-    const user = users.find(user => user.id === userId);
+    const { title, date } = this.state.post;
     const avatar = user.username[0].toUpperCase();
+    const correctUser = currentUserId === user.id;
 
     return (
       <div className={classes.postContainer}>
@@ -100,7 +105,10 @@ class Post extends React.Component {
                   </Typography>
                 </div>
                 <div className={classes.editIcon}>
-                  <IconButton onClick={() => this.handleIsEdit()}>
+                  <IconButton
+                    onClick={() => this.handleIsEdit()}
+                    disabled={!correctUser}
+                  >
                     <CreateIcon />
                   </IconButton>
                 </div>
@@ -125,7 +133,7 @@ class Post extends React.Component {
             <CardActions className={classes.CardActions}>
               <div className={classes.buttonsSection}>
                 <div className={classes.btnDiv}>
-                  <Fab onClick={this.onRemove}>
+                  <Fab onClick={this.onRemove} disabled={!correctUser}>
                     <DeleteIcon />
                   </Fab>
                 </div>
