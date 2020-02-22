@@ -17,8 +17,6 @@ class Comments extends React.Component {
   }
 
   render() {
-    console.log('COMMENTS WORKS...');
-    console.log(this.state.comments);
     const { classes, comments } = this.props;
     const commentsList = comments
       ? comments.reverse()

@@ -27,6 +27,10 @@ export const styles = {
   avatar: {
     backgroundColor: red[500]
   },
+  userSection: {
+    display: 'flex',
+    alignItems: 'center'
+  },
   editIcon: {
     marginLeft: 'auto'
   },

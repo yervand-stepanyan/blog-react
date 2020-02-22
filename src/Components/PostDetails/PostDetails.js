@@ -21,6 +21,13 @@ class PostDetails extends React.Component {
     const post = posts.find(post => post.userId === this.props.currentUserId);
     const comments = JSON.parse(localStorage.getItem('comments')) || [];
 
+    // console.log(this.props.postId);
+    // console.log(props.match.params);
+    // console.log(props.match.params.id);
+
+    // console.log(this.props.currentUserId);
+    // console.log(post);
+
     this.state = {
       posts,
       post,
@@ -33,10 +40,8 @@ class PostDetails extends React.Component {
   };
 
   render() {
-    const { post, comments } = this.state;
+    const { posts, post, comments } = this.state;
     const { classes } = this.props;
-
-    console.log(comments);
 
     return (
       <div className={classes.postsContainer}>
@@ -46,7 +51,7 @@ class PostDetails extends React.Component {
           </Typography>
         </div>
         <div className={classes.postSection}>
-          <Post key={post.id} post={post} />
+          <Post key={post.id} post={post} posts={posts} comments={comments} />
         </div>
         <div className={classes.titleSection}>
           <Typography className={classes.title} variant="h5">

@@ -12,15 +12,12 @@ import CreateIcon from '@material-ui/icons/Create';
 import { withStyles } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import DeleteIcon from '@material-ui/icons/Delete';
-// import Fab from '@material-ui/core/Fab';
 
 function CommentEditable(props) {
   const { classes } = props;
   const { comment, date, userId } = props.comment;
   const users = JSON.parse(localStorage.getItem('users'));
-  console.log('users:', users);
   const user = users.find(user => user.id === userId);
-  console.log('user:', user);
   const avatar = user.username[0].toUpperCase();
 
   return (
@@ -32,7 +29,7 @@ function CommentEditable(props) {
               <div className={classes.avatarSection}>
                 <Avatar className={classes.avatar}>{avatar}</Avatar>
               </div>
-              <div>
+              <div className={classes.userSection}>
                 <Typography variant="subtitle2" color="textSecondary">
                   {date} by {user.username}
                 </Typography>

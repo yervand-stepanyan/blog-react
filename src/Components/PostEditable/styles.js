@@ -33,6 +33,9 @@ export const styles = {
   contentSection: {
     padding: '16px 24px'
   },
+  contentTextField: {
+    width: '100%'
+  },
   CardActions: {
     justifyContent: 'flex-end'
   },
