@@ -4,12 +4,6 @@ export const styles = {
     flexDirection: 'column',
     alignItems: 'center'
   },
-  titleSection: {
-    margin: '20px'
-  },
-  title: {
-    fontWeight: 'bold'
-  },
   postSection: {
     width: '100%'
   },

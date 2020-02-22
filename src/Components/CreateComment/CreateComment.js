@@ -37,8 +37,6 @@ class CreateComment extends React.Component {
       postId: this.props.post.id,
       userId: this.props.post.userId
     };
-
-    console.log(this.state.postId, this.state.userId);
   }
   onCommentChange = event => {
     this.setState({ comment: event.target.value });
@@ -70,6 +68,8 @@ class CreateComment extends React.Component {
       }),
       () => {
         localStorage.setItem('comments', JSON.stringify(this.state.comments));
+
+        this.props.onCommentAdd(this.state.comments);
       }
     );
   };

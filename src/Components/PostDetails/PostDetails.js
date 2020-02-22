@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { styles } from './styles';
 import Post from '../PostEditable';
 import CreateComment from '../CreateComment';
+import Comments from '../Comments';
 
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core';
@@ -18,16 +19,24 @@ class PostDetails extends React.Component {
 
     const posts = JSON.parse(localStorage.getItem('posts')) || [];
     const post = posts.find(post => post.userId === this.props.currentUserId);
+    const comments = JSON.parse(localStorage.getItem('comments')) || [];
 
     this.state = {
       posts,
-      post
+      post,
+      comments
     };
   }
 
+  onCommentAdd = comments => {
+    this.setState({ comments });
+  };
+
   render() {
-    const { post } = this.state;
+    const { post, comments } = this.state;
     const { classes } = this.props;
+
+    console.log(comments);
 
     return (
       <div className={classes.postsContainer}>
@@ -45,7 +54,10 @@ class PostDetails extends React.Component {
           </Typography>
         </div>
         <div className={classes.createCommentSection}>
-          <CreateComment post={post} />
+          <CreateComment post={post} onCommentAdd={this.onCommentAdd} />
+        </div>
+        <div className={classes.commentsSection}>
+          <Comments comments={comments} />
         </div>
       </div>
     );

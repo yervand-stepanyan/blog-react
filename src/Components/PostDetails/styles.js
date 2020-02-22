@@ -15,5 +15,8 @@ export const styles = {
   },
   createCommentSection: {
     width: '75%'
+  },
+  commentsSection: {
+    width: '75%'
   }
 };
