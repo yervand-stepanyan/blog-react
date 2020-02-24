@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 
-function Post(props) {
+function PostNonEditable(props) {
   const { classes } = props;
   const { title, content, date, userId, id } = props.post;
   const users = JSON.parse(localStorage.getItem('users'));
@@ -54,8 +54,8 @@ function Post(props) {
   );
 }
 
-Post.propTypes = {
+PostNonEditable.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Post);
+export default withStyles(styles)(PostNonEditable);

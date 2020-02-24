@@ -32,6 +32,8 @@ class CommentEditable extends React.Component {
       user,
       isEdit: false
     };
+
+    console.log('COMMENTS:', this.state.comments);
   }
 
   onCommentChange = event => {
@@ -43,16 +45,19 @@ class CommentEditable extends React.Component {
   };
 
   onRemove = () => {
-    console.log('comments BEFORE:', this.state.comments);
+    // console.log('comments BEFORE:', this.state.comments);
 
     this.setState(
       state => ({
-        comments: state.comments.filter(
-          comment => comment.id !== state.comment.id
-        )
+        comments: state.comments.filter(comment => {
+          console.log('comment.id:', comment.id);
+          console.log('state.comment.id:', state.comment.id);
+
+          return comment.id !== state.comment.id;
+        })
       }),
       () => {
-        console.log('comments AFTER:', this.state.comments);
+        // console.log('comments AFTER:', this.state.comments);
 
         localStorage.setItem('comments', JSON.stringify(this.state.comments));
 
@@ -119,7 +124,7 @@ class CommentEditable extends React.Component {
                     className={classes.commentTextField}
                     placeholder="Write the post..."
                     id="standard-multiline-static"
-                    label="Post"
+                    label="PostEditable"
                     multiline
                     rows="5"
                     value={commentText}

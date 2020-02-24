@@ -16,7 +16,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Fab from '@material-ui/core/Fab';
 import TextField from '@material-ui/core/TextField';
 
-class Post extends React.Component {
+class PostEditable extends React.Component {
   constructor(props) {
     super(props);
 
@@ -116,7 +116,7 @@ class Post extends React.Component {
                     className={classes.contentTextField}
                     placeholder="Write the post..."
                     id="standard-multiline-static"
-                    label="Post"
+                    label="PostEditable"
                     multiline
                     rows="5"
                     value={content}
@@ -152,8 +152,8 @@ class Post extends React.Component {
   }
 }
 
-Post.propTypes = {
+PostEditable.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withRouter(withStyles(styles)(Post));
+export default withRouter(withStyles(styles)(PostEditable));
