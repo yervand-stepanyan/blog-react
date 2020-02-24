@@ -45,7 +45,7 @@ class PostDetails extends React.Component {
 
   render() {
     const { posts, post, comments } = this.state;
-    const { classes, currentUserId } = this.props;
+    const { classes, currentUserId, postId } = this.props;
 
     return (
       <div className={classes.postsContainer}>
@@ -73,6 +73,7 @@ class PostDetails extends React.Component {
             post={post}
             onCommentAdd={this.onCommentAdd}
             comments={comments}
+            currentUserId={currentUserId}
           />
         </div>
         <div className={classes.commentsSection}>
@@ -80,6 +81,7 @@ class PostDetails extends React.Component {
             comments={comments}
             currentUserId={currentUserId}
             onCommentRemove={this.onCommentRemove}
+            postId={postId}
           />
         </div>
       </div>

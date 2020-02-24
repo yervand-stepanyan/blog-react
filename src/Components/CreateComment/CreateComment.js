@@ -28,16 +28,12 @@ class CreateComment extends React.Component {
     super(props);
 
     const currentId = uuid();
-    // const comments = JSON.parse(localStorage.getItem('comments')) || [];
-    // const currentId =
-    //   comments.length > 0 ? comments[comments.length - 1].id + 1 : 1;
 
     this.state = {
       comment: '',
-      // comments,
       currentId,
       postId: this.props.post.id,
-      userId: this.props.post.userId
+      userId: this.props.currentUserId
     };
   }
 

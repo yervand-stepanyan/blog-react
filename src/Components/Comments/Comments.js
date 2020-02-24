@@ -5,28 +5,34 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import Comment from '../CommentEditable';
 
-class Comments extends React.Component {
-  render() {
-    const { classes, comments, currentUserId, onCommentRemove } = this.props;
+function Comments({
+  classes,
+  comments,
+  currentUserId,
+  onCommentRemove,
+  postId
+}) {
+  const filteredComments = comments.filter(
+    comment => comment.postId === postId
+  );
 
-    return (
-      <div className={classes.postsContainer}>
-        <div className={classes.postSection}>
-          <ul className={classes.ul}>
-            {comments.map(comment => (
-              <Comment
-                key={comment.id}
-                comment={comment}
-                comments={comments}
-                currentUserId={currentUserId}
-                onCommentRemove={onCommentRemove}
-              />
-            ))}
-          </ul>
-        </div>
+  return (
+    <div className={classes.postsContainer}>
+      <div className={classes.postSection}>
+        <ul className={classes.ul}>
+          {filteredComments.map(comment => (
+            <Comment
+              key={comment.id}
+              comment={comment}
+              comments={comments}
+              currentUserId={currentUserId}
+              onCommentRemove={onCommentRemove}
+            />
+          ))}
+        </ul>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 Comments.propTypes = {
