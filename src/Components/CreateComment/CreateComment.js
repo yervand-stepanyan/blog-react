@@ -63,15 +63,9 @@ class CreateComment extends React.Component {
       postId
     };
 
-    this.setState(
-      state => ({
-        currentId: uuid(),
-        comment: ''
-      }),
-      () => {
-        this.props.onCommentAdd(newComment);
-      }
-    );
+    this.setState({ comment: '', currentId: uuid() }, () => {
+      this.props.onCommentAdd(newComment);
+    });
   };
 
   render() {

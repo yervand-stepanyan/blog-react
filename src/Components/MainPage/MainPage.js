@@ -6,6 +6,7 @@ import {
   Redirect
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import uuid from 'react-uuid';
 
 import { styles } from './styles';
 import Header from '../Header';
@@ -14,6 +15,7 @@ import CreatePost from '../CreatePost';
 import ProtectedRoute from '../ProtectedRoute';
 import Posts from '../PostsComponent';
 import PostDetails from '../PostDetails';
+import ScrollToTop from '../../Helpers/ScrollToTop';
 
 import { withStyles } from '@material-ui/core';
 
@@ -22,7 +24,7 @@ class MainPage extends React.Component {
     super(props);
 
     const users = JSON.parse(localStorage.getItem('users')) || [];
-    const currentId = users.length > 0 ? users[users.length - 1].id + 1 : 1;
+    const currentId = uuid();
     const posts = JSON.parse(localStorage.getItem('posts')) || [];
     const isLoggedIn = users.some(user => user.isOnline);
     const currentUserId = isLoggedIn
@@ -38,6 +40,12 @@ class MainPage extends React.Component {
       posts
     };
   }
+
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.location !== prevProps.location) {
+  //     window.scrollTo(0, 0);
+  //   }
+  // }
 
   handleLogIn = (isLoggedIn, user) => {
     const { username, password } = user;
@@ -55,7 +63,6 @@ class MainPage extends React.Component {
               ? { ...user, isOnline: true }
               : { ...user, isOnline: false }
           ),
-          currentId: state.users[state.users.length - 1].id + 1,
           isLoggedIn: isLoggedIn,
           currentUserId: loggedUser.id
         }),
@@ -65,15 +72,15 @@ class MainPage extends React.Component {
       this.setState(
         state => ({
           users: [
-            ...state.users,
             {
               id: state.currentId,
               username: username,
               password: password,
               isOnline: true
-            }
+            },
+            ...state.users
           ],
-          currentId: state.currentId + 1,
+          currentId: uuid(),
           isLoggedIn: isLoggedIn,
           currentUserId: state.currentId
         }),
@@ -119,40 +126,46 @@ class MainPage extends React.Component {
     return (
       <div className={classes.mainContainer}>
         <Router>
-          <Header
-            isLoggedIn={isLoggedIn}
-            handleCreatePostClick={this.handleCreatePostClick}
-          />
-          <Switch>
-            <Route exact path="/">
-              <Redirect to={{ pathname: '/blog-react/' }} />
-            </Route>
-            <Route exact path="/blog-react/">
-              {posts.length > 0 ? <Posts /> : <Home isLoggedIn={isLoggedIn} />}
-            </Route>
-            <ProtectedRoute
-              path={'/blog-react/create'}
+          <ScrollToTop>
+            <Header
               isLoggedIn={isLoggedIn}
-              component={CreatePost}
-              currentUserId={currentUserId}
-              handlePostAdd={this.handlePostAdd}
-            />
-            <ProtectedRoute
-              path={'/blog-react/auth'}
-              isLoggedIn={isLoggedIn}
-              isCreatePostClicked={isCreatePostClicked}
-              handleLogIn={this.handleLogIn}
-              handleLogOut={this.handleLogOut}
               handleCreatePostClick={this.handleCreatePostClick}
             />
-            <ProtectedRoute
-              path={'/blog-react/post/:id'}
-              isLoggedIn={isLoggedIn}
-              component={PostDetails}
-              currentUserId={currentUserId}
-              posts={posts}
-            />
-          </Switch>
+            <Switch>
+              <Route exact path="/">
+                <Redirect to={{ pathname: '/blog-react/' }} />
+              </Route>
+              <Route exact path="/blog-react/">
+                {posts.length > 0 ? (
+                  <Posts />
+                ) : (
+                  <Home isLoggedIn={isLoggedIn} />
+                )}
+              </Route>
+              <ProtectedRoute
+                path={'/blog-react/create'}
+                isLoggedIn={isLoggedIn}
+                component={CreatePost}
+                currentUserId={currentUserId}
+                handlePostAdd={this.handlePostAdd}
+              />
+              <ProtectedRoute
+                path={'/blog-react/auth'}
+                isLoggedIn={isLoggedIn}
+                isCreatePostClicked={isCreatePostClicked}
+                handleLogIn={this.handleLogIn}
+                handleLogOut={this.handleLogOut}
+                handleCreatePostClick={this.handleCreatePostClick}
+              />
+              <ProtectedRoute
+                path={'/blog-react/post/:id'}
+                isLoggedIn={isLoggedIn}
+                component={PostDetails}
+                currentUserId={currentUserId}
+                posts={posts}
+              />
+            </Switch>
+          </ScrollToTop>
         </Router>
       </div>
     );

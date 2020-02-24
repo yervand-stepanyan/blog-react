@@ -37,7 +37,6 @@ class CreatePost extends React.Component {
 
     const currentId = uuid();
     const posts = JSON.parse(localStorage.getItem('posts')) || [];
-    // const currentId = posts.length > 0 ? posts[posts.length - 1].id + 1 : 1;
 
     this.state = {
       title: '',
@@ -77,7 +76,6 @@ class CreatePost extends React.Component {
           },
           ...state.posts
         ],
-        currentId: uuid(),
         title: '',
         content: ''
       }),
