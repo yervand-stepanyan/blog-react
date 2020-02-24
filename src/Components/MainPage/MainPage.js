@@ -41,12 +41,6 @@ class MainPage extends React.Component {
     };
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.location !== prevProps.location) {
-  //     window.scrollTo(0, 0);
-  //   }
-  // }
-
   handleLogIn = (isLoggedIn, user) => {
     const { username, password } = user;
     const { users } = this.state;

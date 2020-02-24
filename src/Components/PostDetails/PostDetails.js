@@ -39,8 +39,16 @@ class PostDetails extends React.Component {
     );
   };
 
-  onCommentRemove = comments => {
-    this.setState({ comments: comments });
+  onCommentRemove = commentToRemove => {
+    this.setState(
+      state => ({
+        comments: state.comments.filter(
+          comment => comment.id !== commentToRemove.id
+        )
+      }),
+      () =>
+        localStorage.setItem('comments', JSON.stringify(this.state.comments))
+    );
   };
 
   render() {

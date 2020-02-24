@@ -32,8 +32,6 @@ class CommentEditable extends React.Component {
       user,
       isEdit: false
     };
-
-    console.log('COMMENTS:', this.state.comments);
   }
 
   onCommentChange = event => {
@@ -45,25 +43,7 @@ class CommentEditable extends React.Component {
   };
 
   onRemove = () => {
-    // console.log('comments BEFORE:', this.state.comments);
-
-    this.setState(
-      state => ({
-        comments: state.comments.filter(comment => {
-          console.log('comment.id:', comment.id);
-          console.log('state.comment.id:', state.comment.id);
-
-          return comment.id !== state.comment.id;
-        })
-      }),
-      () => {
-        // console.log('comments AFTER:', this.state.comments);
-
-        localStorage.setItem('comments', JSON.stringify(this.state.comments));
-
-        this.props.onCommentRemove(this.state.comments);
-      }
-    );
+    this.props.onCommentRemove(this.props.comment);
   };
 
   onSubmit = () => {
