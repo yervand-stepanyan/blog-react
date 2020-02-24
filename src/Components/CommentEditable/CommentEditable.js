@@ -118,12 +118,20 @@ class CommentEditable extends React.Component {
             <CardActions className={classes.CardActions}>
               <div className={classes.buttonsSection}>
                 <div className={classes.btnDiv}>
-                  <IconButton onClick={this.onRemove} disabled={!correctUser}>
+                  <IconButton
+                    onClick={this.onRemove}
+                    disabled={!correctUser}
+                    color="secondary"
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </div>
                 <div>
-                  <IconButton disabled={!isEdit} onClick={this.onSubmit}>
+                  <IconButton
+                    disabled={!isEdit}
+                    onClick={this.onSubmit}
+                    color="primary"
+                  >
                     <CheckIcon />
                   </IconButton>
                 </div>

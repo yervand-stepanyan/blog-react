@@ -130,7 +130,11 @@ class PostEditable extends React.Component {
             <CardActions className={classes.CardActions}>
               <div className={classes.buttonsSection}>
                 <div className={classes.btnDiv}>
-                  <Fab onClick={this.onRemove} disabled={!correctUser}>
+                  <Fab
+                    onClick={this.onRemove}
+                    disabled={!correctUser}
+                    color="secondary"
+                  >
                     <DeleteIcon />
                   </Fab>
                 </div>
