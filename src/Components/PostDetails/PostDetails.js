@@ -18,7 +18,7 @@ class PostDetails extends React.Component {
     super(props);
 
     const posts = JSON.parse(localStorage.getItem('posts')) || [];
-    const post = posts.find(post => post.id === +this.props.postId);
+    const post = posts.find(post => post.id === this.props.postId);
     const comments = JSON.parse(localStorage.getItem('comments')) || [];
 
     this.state = {
@@ -31,7 +31,7 @@ class PostDetails extends React.Component {
   onCommentAdd = comment => {
     this.setState(
       state => ({
-        comments: [...state.comments, comment]
+        comments: [comment, ...state.comments]
       }),
       () => {
         localStorage.setItem('comments', JSON.stringify(this.state.comments));

@@ -1,5 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { styles } from './styles';
@@ -119,6 +124,9 @@ class MainPage extends React.Component {
             handleCreatePostClick={this.handleCreatePostClick}
           />
           <Switch>
+            <Route exact path="/">
+              <Redirect to={{ pathname: '/blog-react/' }} />
+            </Route>
             <Route exact path="/blog-react/">
               {posts.length > 0 ? <Posts /> : <Home isLoggedIn={isLoggedIn} />}
             </Route>

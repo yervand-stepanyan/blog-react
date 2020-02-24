@@ -1,6 +1,7 @@
 import React from 'react';
 import { styles } from './styles';
 import PropTypes from 'prop-types';
+import uuid from 'react-uuid';
 
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
@@ -26,9 +27,10 @@ class CreateComment extends React.Component {
   constructor(props) {
     super(props);
 
-    const comments = JSON.parse(localStorage.getItem('comments')) || [];
-    const currentId =
-      comments.length > 0 ? comments[comments.length - 1].id + 1 : 1;
+    const currentId = uuid();
+    // const comments = JSON.parse(localStorage.getItem('comments')) || [];
+    // const currentId =
+    //   comments.length > 0 ? comments[comments.length - 1].id + 1 : 1;
 
     this.state = {
       comment: '',
@@ -63,7 +65,7 @@ class CreateComment extends React.Component {
 
     this.setState(
       state => ({
-        currentId: state.currentId + 1,
+        currentId: uuid(),
         comment: ''
       }),
       () => {

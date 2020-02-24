@@ -2,6 +2,7 @@ import React from 'react';
 import { styles } from './styles';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import uuid from 'react-uuid';
 
 import { withStyles } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
@@ -34,8 +35,9 @@ class CreatePost extends React.Component {
   constructor(props) {
     super(props);
 
+    const currentId = uuid();
     const posts = JSON.parse(localStorage.getItem('posts')) || [];
-    const currentId = posts.length > 0 ? posts[posts.length - 1].id + 1 : 1;
+    // const currentId = posts.length > 0 ? posts[posts.length - 1].id + 1 : 1;
 
     this.state = {
       title: '',
@@ -75,7 +77,7 @@ class CreatePost extends React.Component {
           },
           ...state.posts
         ],
-        currentId: state.currentId + 1,
+        currentId: uuid(),
         title: '',
         content: ''
       }),
