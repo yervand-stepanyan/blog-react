@@ -18,15 +18,8 @@ class PostDetails extends React.Component {
     super(props);
 
     const posts = JSON.parse(localStorage.getItem('posts')) || [];
-    const post = posts.find(post => post.userId === this.props.currentUserId);
+    const post = posts.find(post => post.id === +this.props.postId);
     const comments = JSON.parse(localStorage.getItem('comments')) || [];
-
-    // console.log(this.props.postId);
-    // console.log(props.match.params);
-    // console.log(props.match.params.id);
-
-    // console.log(this.props.currentUserId);
-    // console.log(post);
 
     this.state = {
       posts,

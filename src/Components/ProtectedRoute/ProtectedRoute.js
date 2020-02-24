@@ -14,11 +14,9 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
     isCreatePostClicked,
     currentUserId,
     handlePostAdd,
-    posts
+    posts,
+    computedMatch
   } = rest;
-
-  // let { match } = this.props;
-  // console.log(this.props);
 
   if (path === '/blog-react/auth') {
     return isLoggedIn ? (
@@ -45,7 +43,8 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
           currentUserId={currentUserId}
           handlePostAdd={handlePostAdd}
           posts={posts}
-          // postId={match.params.id}
+          {...rest}
+          postId={computedMatch.params.id}
         />
       </Route>
     ) : (

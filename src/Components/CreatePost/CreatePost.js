@@ -66,14 +66,14 @@ class CreatePost extends React.Component {
     this.setState(
       state => ({
         posts: [
-          ...state.posts,
           {
             id: state.currentId,
             title: state.title,
             content: state.content,
             date: now,
             userId: state.currentUserId
-          }
+          },
+          ...state.posts
         ],
         currentId: state.currentId + 1,
         title: '',
