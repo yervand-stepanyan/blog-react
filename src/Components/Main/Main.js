@@ -19,7 +19,7 @@ import ScrollToTop from '../../Helpers/ScrollToTop';
 
 import { withStyles } from '@material-ui/core';
 
-class MainPage extends React.Component {
+class Main extends React.Component {
   constructor(props) {
     super(props);
 
@@ -166,8 +166,8 @@ class MainPage extends React.Component {
   }
 }
 
-MainPage.propTypes = {
+Main.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(MainPage);
+export default withStyles(styles)(Main);
