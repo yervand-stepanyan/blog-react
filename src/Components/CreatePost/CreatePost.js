@@ -76,6 +76,7 @@ class CreatePost extends React.Component {
           },
           ...state.posts
         ],
+        currentId: uuid(),
         title: '',
         content: ''
       }),
