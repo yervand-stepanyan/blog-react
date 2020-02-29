@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { styles } from './styles';
 import Post from '../PostEditable';
-import CreateComment from '../CreateComment';
-import Comments from '../Comments';
+import CreateComment from '../../Comment/CreateComment';
+import Comments from '../../Comment/Comments';
 
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core';
