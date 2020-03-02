@@ -12,55 +12,97 @@ const VARIABLES = {
   title: 'Log in',
   usernameLabel: '* Username',
   passwordLabel: '* Password',
-  buttonLabel: 'Log In'
+  buttonLabel: 'Log In',
+  usernameErrorLabel: '* Username is empty',
+  passwordErrorLabel: '* Password is empty',
+  incorrectPassword: '* Password is incorrect'
 };
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
 
+    const users = props.users || [];
+
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      isUsernameEmpty: false,
+      isPasswordEmpty: false,
+      isPasswordCorrect: true,
+      users
     };
   }
 
   onUsernameChange = event => {
-    this.setState({ username: event.target.value });
+    this.setState({ username: event.target.value, isUsernameEmpty: false });
   };
 
   onPasswordChange = event => {
-    this.setState({ password: event.target.value });
+    this.setState({
+      password: event.target.value,
+      isPasswordEmpty: false,
+      isPasswordCorrect: true
+    });
   };
 
   handleLogIn = () => {
-    const { username, password } = this.state;
+    const { username, password, users } = this.state;
     const {
-      isLoggedIn,
+      handleLogIn,
       history,
       isCreatePostClicked,
       handleCreatePostClick
     } = this.props;
 
-    if (username && password) {
+    if (!username && !password) {
+      this.setState({ isUsernameEmpty: true, isPasswordEmpty: true });
+    } else if (!username) {
+      this.setState({ isUsernameEmpty: true });
+    } else if (!password) {
+      this.setState({ isPasswordEmpty: true });
+    } else {
       const newUser = { username: username.trim(), password };
 
-      this.setState({ username: '', password: '' }, () => {
-        isLoggedIn(true, newUser);
+      users.forEach(user => {
+        if (user.username === newUser.username) {
+          if (user.password === newUser.password) {
+            this.setState(
+              {
+                username: '',
+                password: '',
+                isUsernameEmpty: false,
+                isPasswordEmpty: false,
+                isPasswordCorrect: true
+              },
+              () => {
+                handleLogIn(true, newUser);
 
-        if (isCreatePostClicked) {
-          history.push('/blog-react/create');
+                if (isCreatePostClicked) {
+                  history.push('/blog-react/create');
 
-          handleCreatePostClick(false);
-        } else {
-          history.push('/blog-react/');
+                  handleCreatePostClick(false);
+                } else {
+                  history.push('/blog-react/');
+                }
+              }
+            );
+          } else {
+            this.setState({ isPasswordCorrect: false });
+          }
         }
       });
     }
   };
 
   render() {
-    const { username, password } = this.state;
+    const {
+      username,
+      password,
+      isUsernameEmpty,
+      isPasswordEmpty,
+      isPasswordCorrect
+    } = this.state;
     const { classes } = this.props;
 
     return (
@@ -75,7 +117,12 @@ class Login extends React.Component {
             <div className={classes.usernameInput}>
               <TextField
                 id="standard-basic"
-                label={VARIABLES.usernameLabel}
+                label={
+                  isUsernameEmpty
+                    ? VARIABLES.usernameErrorLabel
+                    : VARIABLES.usernameLabel
+                }
+                error={isUsernameEmpty}
                 fullWidth
                 value={username}
                 onChange={e => this.onUsernameChange(e)}
@@ -84,7 +131,14 @@ class Login extends React.Component {
             <div className={classes.passwordInput}>
               <TextField
                 id="standard-password-input"
-                label={VARIABLES.passwordLabel}
+                label={
+                  isPasswordCorrect
+                    ? isPasswordEmpty
+                      ? VARIABLES.passwordErrorLabel
+                      : VARIABLES.passwordLabel
+                    : VARIABLES.incorrectPassword
+                }
+                error={isPasswordEmpty || !isPasswordCorrect}
                 type="password"
                 autoComplete="current-password"
                 fullWidth
@@ -98,7 +152,7 @@ class Login extends React.Component {
                 size="large"
                 color="primary"
                 fullWidth
-                onClick={() => this.handleLogIn()}
+                onClick={this.handleLogIn}
               >
                 {VARIABLES.buttonLabel}
               </Button>

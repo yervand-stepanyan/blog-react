@@ -15,6 +15,7 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
     currentUserId,
     handlePostAdd,
     posts,
+    users,
     computedMatch
   } = rest;
 
@@ -22,7 +23,7 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
     return isLoggedIn ? (
       <Route path={path}>
         <Logout
-          isLoggedIn={handleLogOut}
+          handleLogOut={handleLogOut}
           isCreatePostClicked={isCreatePostClicked}
           handleCreatePostClick={handleCreatePostClick}
         />
@@ -30,7 +31,8 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
     ) : (
       <Route path={path}>
         <Login
-          isLoggedIn={handleLogIn}
+          users={users}
+          handleLogIn={handleLogIn}
           isCreatePostClicked={isCreatePostClicked}
           handleCreatePostClick={handleCreatePostClick}
         />

@@ -57,7 +57,7 @@ class Main extends React.Component {
               ? { ...user, isOnline: true }
               : { ...user, isOnline: false }
           ),
-          isLoggedIn: isLoggedIn,
+          isLoggedIn,
           currentUserId: loggedUser.id
         }),
         () => localStorage.setItem('users', JSON.stringify(this.state.users))
@@ -68,14 +68,14 @@ class Main extends React.Component {
           users: [
             {
               id: state.currentId,
-              username: username,
-              password: password,
+              username,
+              password,
               isOnline: true
             },
             ...state.users
           ],
           currentId: uuid(),
-          isLoggedIn: isLoggedIn,
+          isLoggedIn,
           currentUserId: state.currentId
         }),
         () => localStorage.setItem('users', JSON.stringify(this.state.users))
@@ -94,7 +94,7 @@ class Main extends React.Component {
     this.setState(
       {
         users: newUsers,
-        isLoggedIn: isLoggedIn
+        isLoggedIn
       },
       () => localStorage.setItem('users', JSON.stringify(this.state.users))
     );
@@ -105,7 +105,7 @@ class Main extends React.Component {
   };
 
   handlePostAdd = posts => {
-    this.setState({ posts: posts });
+    this.setState({ posts });
   };
 
   render() {
@@ -113,7 +113,8 @@ class Main extends React.Component {
       isLoggedIn,
       isCreatePostClicked,
       currentUserId,
-      posts
+      posts,
+      users
     } = this.state;
     const { classes } = this.props;
 
@@ -145,6 +146,7 @@ class Main extends React.Component {
               />
               <ProtectedRoute
                 path={'/blog-react/auth'}
+                users={users}
                 isLoggedIn={isLoggedIn}
                 isCreatePostClicked={isCreatePostClicked}
                 handleLogIn={this.handleLogIn}

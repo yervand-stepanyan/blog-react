@@ -5,7 +5,8 @@ module.exports = {
   extends: ['eslint:recommended', 'plugin:react/recommended'],
   globals: {
     Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly'
+    SharedArrayBuffer: 'readonly',
+    localStorage: true
   },
   parserOptions: {
     ecmaFeatures: {
