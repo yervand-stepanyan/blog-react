@@ -46,6 +46,30 @@ class Login extends React.Component {
     });
   };
 
+  passUser = (
+    user,
+    handleLogIn,
+    history,
+    handleCreatePostClick,
+    isCreatePostClicked
+  ) => {
+    handleLogIn(true, user);
+
+    if (isCreatePostClicked) {
+      history.push('/blog-react/create');
+
+      handleCreatePostClick(false);
+    } else {
+      history.push('/blog-react/');
+    }
+  };
+
+  handleSubmitOnEnter = e => {
+    if (e.key === 'Enter') {
+      this.handleLogIn();
+    }
+  };
+
   handleLogIn = () => {
     const { username, password, users } = this.state;
     const {
@@ -64,8 +88,12 @@ class Login extends React.Component {
     } else {
       const newUser = { username: username.trim(), password };
 
-      users.forEach(user => {
-        if (user.username === newUser.username) {
+      const isUserRegistered = users.some(
+        user => user.username === newUser.username
+      );
+
+      if (isUserRegistered) {
+        users.forEach(user => {
           if (user.password === newUser.password) {
             this.setState(
               {
@@ -76,22 +104,28 @@ class Login extends React.Component {
                 isPasswordCorrect: true
               },
               () => {
-                handleLogIn(true, newUser);
-
-                if (isCreatePostClicked) {
-                  history.push('/blog-react/create');
-
-                  handleCreatePostClick(false);
-                } else {
-                  history.push('/blog-react/');
-                }
+                this.passUser(
+                  newUser,
+                  handleLogIn,
+                  history,
+                  handleCreatePostClick,
+                  isCreatePostClicked
+                );
               }
             );
           } else {
             this.setState({ isPasswordCorrect: false });
           }
-        }
-      });
+        });
+      } else {
+        this.passUser(
+          newUser,
+          handleLogIn,
+          history,
+          handleCreatePostClick,
+          isCreatePostClicked
+        );
+      }
     }
   };
 
@@ -144,6 +178,7 @@ class Login extends React.Component {
                 fullWidth
                 value={password}
                 onChange={e => this.onPasswordChange(e)}
+                onKeyDown={this.handleSubmitOnEnter}
               />
             </div>
             <div className={classes.loginBtn}>
