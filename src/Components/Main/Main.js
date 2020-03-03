@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import uuid from 'react-uuid';
 
 import { styles } from './styles';
+import { ROUTES } from '../../Routes/Routes';
 import Header from '../Header';
 import Home from '../Home';
 import CreatePost from '../Post/CreatePost';
@@ -128,9 +129,9 @@ class Main extends React.Component {
             />
             <Switch>
               <Route exact path="/">
-                <Redirect to={{ pathname: '/blog-react/' }} />
+                <Redirect to={{ pathname: ROUTES.home }} />
               </Route>
-              <Route exact path="/blog-react/">
+              <Route exact path={ROUTES.home}>
                 {posts.length > 0 ? (
                   <Posts />
                 ) : (
@@ -138,14 +139,14 @@ class Main extends React.Component {
                 )}
               </Route>
               <ProtectedRoute
-                path={'/blog-react/create'}
+                path={ROUTES.create}
                 isLoggedIn={isLoggedIn}
                 component={CreatePost}
                 currentUserId={currentUserId}
                 handlePostAdd={this.handlePostAdd}
               />
               <ProtectedRoute
-                path={'/blog-react/auth'}
+                path={ROUTES.auth}
                 users={users}
                 isLoggedIn={isLoggedIn}
                 isCreatePostClicked={isCreatePostClicked}
@@ -154,7 +155,7 @@ class Main extends React.Component {
                 handleCreatePostClick={this.handleCreatePostClick}
               />
               <ProtectedRoute
-                path={'/blog-react/post/:id'}
+                path={`${ROUTES.postById}/:id`}
                 isLoggedIn={isLoggedIn}
                 component={PostDetails}
                 currentUserId={currentUserId}

@@ -1,7 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import { styles } from './styles';
+import { ROUTES } from '../../../Routes/Routes';
 
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -56,11 +58,11 @@ class Login extends React.Component {
     handleLogIn(true, user);
 
     if (isCreatePostClicked) {
-      history.push('/blog-react/create');
+      history.push(ROUTES.create);
 
       handleCreatePostClick(false);
     } else {
-      history.push('/blog-react/');
+      history.push(ROUTES.home);
     }
   };
 
