@@ -162,6 +162,7 @@ class Login extends React.Component {
                 fullWidth
                 value={username}
                 onChange={e => this.onUsernameChange(e)}
+                onKeyDown={this.handleSubmitOnEnter}
               />
             </div>
             <div className={classes.passwordInput}>
